@@ -10,5 +10,6 @@ systemctl start docker
 # Allow user permissions to control Docker
 usermod -aG docker ubuntu
 # Join manager or worker to Swarm - get full token via "docker swarm join-token worker"
+docker swarm join --token ################################################
 # Restart worker
 init 6
