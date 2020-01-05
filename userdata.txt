@@ -1,15 +1,14 @@
 #!/bin/bash
-yum update -y
-sudo yum install -y yum-utils \
-  device-mapper-persistent-data \
-  lvm2 -y
-yum install nfs-utils -y
-yum-config-manager \
-    --add-repo \
-    https://download.docker.com/linux/centos/docker-ce.repo
-yum install docker-ce docker-ce-cli containerd.io --nobest -y
-usermod -aG docker ec2-user
+apt-get upgrade -y
+# Install NFS - this is needed to create the Docker Volume that uses an NFS server
+apt install nfs-common -y
+# Install latest Docker
+curl -fsSL https://get.docker.com/ | sh
+# Start and enable Docker service
 systemctl enable docker
 systemctl start docker
-docker swarm join --token ########run command docker swarm join-token worker // paste URL here ##############
+# Allow user permissions to control Docker
+usermod -aG docker ubuntu
+# Join manager or worker to Swarm - get full token via "docker swarm join-token worker"
+# Restart worker
 init 6
